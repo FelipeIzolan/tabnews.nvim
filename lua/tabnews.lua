@@ -27,16 +27,6 @@ local news = popup({
   buf_options = { modifiable = true }
 })
 
-local unmount = function ()
-  vim.g.__tabnews_open = false
-  vim.api.nvim_buf_set_lines(news.bufnr, 0, 1, false, {})
-  news:hide()
-end
-
-news:map("n", "<Esc>", unmount)
-news:on(event.BufLeave, unmount)
-news:on(event.QuitPre, unmount)
-
 local tabnews = menu(
 {
   position = "50%",
@@ -66,29 +56,25 @@ local tabnews = menu(
     submit = { "<CR>", "<Space>" },
   },
   on_submit = function(item)
+    news:mount()
+    news:map("n", "<Esc>", function () news:unmount() end)
+    news:on(event.BufLeave, function () news:unmount() end)
+
     local c = request("https://www.tabnews.com.br/api/v1/contents"..item.path)
     local hr = string.rep("-", news._.size.width)
     local lines = { " "..c.tabcoins .. " | " .. c.owner_username .. " | " .. c.title, hr, "", parser(c.body) }
-
     vim.api.nvim_buf_set_lines(news.bufnr, 0, 1, false, lines)
-    news:show()
-
-    vim.g.__tabnews_open = true
   end
 })
 
-tabnews:on(event.BufLeave, function () tabnews:unmount() end)
+
 
 vim.api.nvim_create_user_command(
   "TabNews",
   function ()
     if not news._.mounted then
-      news:mount()
-      news:hide()
-    end
-
-    if not vim.g.__tabnews_open then
       tabnews:mount()
+      tabnews:on(event.BufLeave, function () tabnews:unmount() end)
     end
   end,
   {}
