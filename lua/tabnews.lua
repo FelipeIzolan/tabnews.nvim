@@ -5,6 +5,7 @@ local map = require("tabnews.map")
 local popup = require("nui.popup")
 local menu = require("nui.menu")
 local event = require("nui.utils.autocmd").event
+local line = require("nui.line")
 
 local tab = request("https://www.tabnews.com.br/api/v1/contents")
 
@@ -62,12 +63,22 @@ local tabnews = menu(
 
     local c = request("https://www.tabnews.com.br/api/v1/contents"..item.path)
     local hr = string.rep("-", news._.size.width)
-    local lines = { " "..c.tabcoins .. " | " .. c.owner_username .. " | " .. c.title, hr, "", parser(c.body) }
-    vim.api.nvim_buf_set_lines(news.bufnr, 0, 1, false, lines)
+    local header = line()
+
+    header:append(" "..c.tabcoins, "__tabnews_tabcoin")
+    header:append(" | ")
+    header:append(c.owner_username, "__tabnews_username")
+    header:append(" | ")
+    header:append(c.title)
+
+    header:render(news.bufnr, -1, 1)
+    vim.api.nvim_buf_set_lines(news.bufnr, 1, 2, false, { hr, "" })
+    vim.api.nvim_buf_set_lines(news.bufnr, 2, 3, false, { parser(c.body) })
   end
 })
 
-
+vim.api.nvim_set_hl(0, "__tabnews_username", { bg = "#73a2ff", fg = "#013aa3" })
+vim.api.nvim_set_hl(0, "__tabnews_tabcoin", { fg = "#73a2ff" })
 
 vim.api.nvim_create_user_command(
   "TabNews",
