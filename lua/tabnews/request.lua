@@ -1,4 +1,4 @@
-local decode = require("tabnews.decode")
+local decode = require("tabnews.utils.decode")
 
 function Request (url)
   local req = assert(io.popen("curl "..url, "r"))

@@ -1,6 +1,6 @@
 local request = require("tabnews.request")
 local parser = require("tabnews.parser")
-local map = require("tabnews.map")
+local map = require("tabnews.utils.map")
 
 local popup = require("nui.popup")
 local menu = require("nui.menu")
@@ -47,7 +47,14 @@ local tabnews = menu(
 {
   lines = map(tab,
     function (value, index)
-      return menu.item(index..". "..value.title, { path = "/"..value.owner_username.."/"..value.slug })
+      local n = index < 10 and "0"..index or tostring(index)
+      local i = line()
+
+      i:append(n, "__tabnews_tabcoin")
+      i:append(" | ")
+      i:append(value.title)
+
+      return menu.item(i, { path = "/"..value.owner_username.."/"..value.slug })
     end
   ),
   keymap = {
@@ -62,7 +69,11 @@ local tabnews = menu(
     news:on(event.BufLeave, function () news:unmount() end)
 
     local c = request("https://www.tabnews.com.br/api/v1/contents"..item.path)
-    local hr = string.rep("-", news._.size.width)
+    local hr_width = #c.title > news._.size.width and #c.title or news._.size.width
+    local hr = string.rep("-", hr_width)
+
+    print(hr_width)
+
     local header = line()
 
     header:append(" "..c.tabcoins, "__tabnews_tabcoin")
