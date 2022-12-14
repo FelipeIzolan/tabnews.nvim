@@ -94,7 +94,7 @@ local tabnews = menu(
 
 vim.api.nvim_set_hl(0, "__tabnews_username", { bg = "#73a2ff", fg = "#013aa3" })
 vim.api.nvim_set_hl(0, "__tabnews_tabcoin", { fg = "#73a2ff" })
-vim.g.__tabnews_width = news._.size.width
+vim.g.__tabnews_width = vim.fn.winwidth(0)
 
 vim.api.nvim_create_user_command(
   "TabNews",
