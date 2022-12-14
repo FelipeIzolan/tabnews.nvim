@@ -1,8 +1,7 @@
 # tabnews.nvim
 
-NeoVim client  for [TabNews](https://www.tabnews.com.br/) **PT-BR**
+[TabNews](https://www.tabnews.com.br/) (**PT-BR**) client for neovim.
 
---
 
 ## Installation
 
@@ -16,7 +15,10 @@ use {
 }
 ```
 
-# Screenshots
+## Screenshots
 
-![tabnews](https://user-images.githubusercontent.com/80170121/206893434-9c2ba418-75fd-47eb-b63c-a6940759c2e1.png)
-![](https://user-images.githubusercontent.com/80170121/206893434-9c2ba418-75fd-47eb-b63c-a6940759c2e1.png)
+![](https://user-images.githubusercontent.com/80170121/207524427-97b2e7a4-164e-4a33-86cc-b4db4bab6690.png)
+![](https://user-images.githubusercontent.com/80170121/207524469-a029dd82-b14d-42a6-8987-1a965e93c359.png)
+
+## Contributing
+Feel free to contribute (specially with parser/component 😆).
