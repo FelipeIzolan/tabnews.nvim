@@ -15,6 +15,10 @@ use {
 }
 ```
 
+```
+:TabNews
+```
+
 ## Screenshots
 
 ![](https://user-images.githubusercontent.com/80170121/207524427-97b2e7a4-164e-4a33-86cc-b4db4bab6690.png)
