@@ -11,7 +11,7 @@
 use {
     'FelipeIzolan/tabnews.nvim',
     requires = { "MunifTanjim/nui.nvim" },
-    config = function() require("tabnews").setup() end
+    config = function() require("tabnews").setup({ per_page = 60 }) end
 }
 ```
 
