@@ -265,7 +265,7 @@ parse = function(str, idx)
 end
 
 
-function Decode(str)
+local function decode(str)
   if type(str) ~= "string" then
     error("expected argument of type string, got " .. type(str))
   end
@@ -278,4 +278,4 @@ function Decode(str)
 end
 
 
-return Decode
+return decode

@@ -1,6 +1,6 @@
 local decode = require("tabnews.utils.decode")
 
-function Request (url)
+local function request (url)
   local req = assert(io.popen("curl "..url, "r"))
   local data = decode(req:read("a"))
 
@@ -10,4 +10,4 @@ function Request (url)
   return data
 end
 
-return Request
+return request

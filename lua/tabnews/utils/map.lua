@@ -1,4 +1,4 @@
-function Map(t, callback)
+local function map(t, callback)
   local result = {}
 
   assert(type(t) == "table", "t must be a table.")
@@ -18,4 +18,4 @@ function Map(t, callback)
   return result
 end
 
-return Map
+return map

@@ -1,6 +1,7 @@
 local request = require("tabnews.request")
 local parser = require("tabnews.parser")
 local map = require("tabnews.utils.map")
+local component = require("tabnews.component")
 
 local popup = require("nui.popup")
 local menu = require("nui.menu")
@@ -69,11 +70,6 @@ local tabnews = menu(
     news:on(event.BufLeave, function () news:unmount() end)
 
     local c = request("https://www.tabnews.com.br/api/v1/contents"..item.path)
-    local hr_width = #c.title > news._.size.width and #c.title or news._.size.width
-    local hr = string.rep("-", hr_width)
-
-    print(hr_width)
-
     local header = line()
 
     header:append(" "..c.tabcoins, "__tabnews_tabcoin")
@@ -83,13 +79,15 @@ local tabnews = menu(
     header:append(c.title)
 
     header:render(news.bufnr, -1, 1)
-    vim.api.nvim_buf_set_lines(news.bufnr, 1, 2, false, { hr, "" })
+    vim.api.nvim_buf_set_lines(news.bufnr, 1, 2, false, { component.hr() })
     vim.api.nvim_buf_set_lines(news.bufnr, 2, 3, false, { parser(c.body) })
   end
 })
 
 vim.api.nvim_set_hl(0, "__tabnews_username", { bg = "#73a2ff", fg = "#013aa3" })
 vim.api.nvim_set_hl(0, "__tabnews_tabcoin", { fg = "#73a2ff" })
+vim.api.nvim_set_hl(0, "__tabnews_title", { bold = true })
+vim.g.__tabnews_width = news._.size.width
 
 vim.api.nvim_create_user_command(
   "TabNews",
