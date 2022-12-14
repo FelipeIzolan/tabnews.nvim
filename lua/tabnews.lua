@@ -8,9 +8,15 @@ local menu = require("nui.menu")
 local event = require("nui.utils.autocmd").event
 local line = require("nui.line")
 
-local function setup()
+local function setup(option)
 
-local tab = request("https://www.tabnews.com.br/api/v1/contents")
+if not option then
+  option = {}
+end
+
+option.per_page = option.per_page and option.per_page or 30
+
+local tab = request("https://www.tabnews.com.br/api/v1/contents?per_page="..option.per_page)
 
 local news = popup({
   enter = true,
@@ -88,7 +94,6 @@ local tabnews = menu(
 
 vim.api.nvim_set_hl(0, "__tabnews_username", { bg = "#73a2ff", fg = "#013aa3" })
 vim.api.nvim_set_hl(0, "__tabnews_tabcoin", { fg = "#73a2ff" })
-vim.api.nvim_set_hl(0, "__tabnews_title", { bold = true })
 vim.g.__tabnews_width = news._.size.width
 
 vim.api.nvim_create_user_command(
