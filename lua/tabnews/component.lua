@@ -8,9 +8,8 @@ end
 
 local function link (value)
   local t = {}
-  local double = value:sub(1, 2) == "[[" or value:sub(1, 3) == " [["
   local qs = value:find("%[") + 1
-  local qe = double and value:find("]", value:find("]") + 1) or value:find("]")
+  local qe = value:find("]")
 
   t[1] = value:sub(qs, qe - 1)
   t[2] = value:sub(qe + 1, #value)

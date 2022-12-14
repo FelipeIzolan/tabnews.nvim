@@ -36,7 +36,7 @@ local function parser (body)
       result[i] = components.hr()
     end
 
-    if c1 == "!" or c2 == " !" or c1 == "[" or c2 == " [" then
+    if c1 == "!" or c1 == "[" then
       local x = components.link(value)
       result[i] = x[1]
       table.insert(result, i + 1, x[2])
