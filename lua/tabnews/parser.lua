@@ -3,7 +3,7 @@ local components = require("tabnews.component")
 local function parser (body)
   local result = {}
   local text = body
-  local text_max_width = 72
+  local text_max_width = 76
   local s, e = text:find("\n")
 
   -- table

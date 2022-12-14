@@ -1,12 +1,12 @@
-local hr = function ()
+local function hr ()
   return string.rep("-", vim.g.__tabnews_width)
 end
 
-local title = function (value)
+local function title (value)
   return "--[" .. value:gsub("#", "") .. " ]--"
 end
 
-local link = function (value)
+local function link (value)
   local t = {}
   local double = value:sub(1, 2) == "[[" or value:sub(1, 3) == " [["
   local qs = value:find("%[") + 1

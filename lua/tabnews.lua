@@ -8,6 +8,8 @@ local menu = require("nui.menu")
 local event = require("nui.utils.autocmd").event
 local line = require("nui.line")
 
+local function setup()
+
 local tab = request("https://www.tabnews.com.br/api/v1/contents")
 
 local news = popup({
@@ -99,3 +101,7 @@ vim.api.nvim_create_user_command(
   end,
   {}
 )
+
+end
+
+return { setup = setup }
