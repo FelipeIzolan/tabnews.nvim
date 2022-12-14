@@ -40,7 +40,6 @@ local function parser (body)
       local x = components.link(value)
       result[i] = x[1]
       table.insert(result, i + 1, x[2])
-      if #x == 3 then table.insert(result, i + 2, x[3]) end
     end
 
   end
