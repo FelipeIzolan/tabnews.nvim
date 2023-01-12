@@ -5,6 +5,7 @@
 
 ## Installation
 
+Install [curl](https://curl.se/download.html).\
 [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ```lua
